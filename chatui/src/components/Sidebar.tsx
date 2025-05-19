@@ -28,7 +28,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         <div className="sidebar">
             <div className="sidebar-brand">
                 <div className="brand-logo">
-                    <img src="https://learn.microsoft.com/en-us/dotnet/aspire/media/index/aspire-logo.png" alt="Aspire Logo" />
+                    <img src="https://learn.microsoft.com/en-us/dotnet/aspire/assets/dotnet-aspire-logo-128.svg" alt="Aspire Logo" />
                 </div>
                 <h1>Aspire AI Chat</h1>
             </div>
