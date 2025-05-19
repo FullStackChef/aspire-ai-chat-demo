@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Chat } from '../types/ChatTypes';
+import { PenLine, Trash2, MessageSquarePlus } from 'lucide-react';
 
 interface SidebarProps {
     chats: Chat[];
@@ -42,7 +43,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                             className="new-chat-input"
                         />
                         <button type="submit" className="new-chat-button" title="Create new chat">
-                            ✏️
+                            <MessageSquarePlus size={20} />
                         </button>
                     </div>
                 </form>
@@ -59,13 +60,14 @@ const Sidebar: React.FC<SidebarProps> = ({
                             onClick={() => navigate(`/chat/${chat.id}`)}
                             className={`chat-item ${selectedChatId === chat.id ? 'selected' : ''}`}
                         >
+                            <PenLine size={16} className="chat-icon" />
                             <span className="chat-name">{chat.name}</span>
                             <button
                                 className="delete-chat-button"
                                 onClick={(e) => handleDeleteChat(e, chat.id)}
                                 title="Delete chat"
                             >
-                                ×
+                                <Trash2 size={16} />
                             </button>
                         </li>
                     ))}

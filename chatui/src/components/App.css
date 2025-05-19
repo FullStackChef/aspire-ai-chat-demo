@@ -102,7 +102,6 @@
   border: 1px solid var(--color-border);
   background-color: var(--color-surface);
   color: var(--color-text);
-  font-size: 1rem;
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
@@ -162,8 +161,8 @@
   border-radius: var(--radius-md);
   border: 1px solid var(--color-border);
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 0.75rem;
   transition: all 0.2s ease;
 }
 
@@ -178,9 +177,12 @@
   border-color: var(--color-primary);
 }
 
+.chat-icon {
+  flex-shrink: 0;
+}
+
 .chat-name {
   flex-grow: 1;
-  margin-right: 0.5rem;
   font-weight: 500;
   white-space: nowrap;
   overflow: hidden;
@@ -192,7 +194,6 @@
   background: none;
   border: none;
   color: inherit;
-  font-size: 1.25rem;
   cursor: pointer;
   padding: 0.25rem;
   border-radius: var(--radius-md);
@@ -232,8 +233,8 @@
 }
 
 .empty-state-icon {
-  font-size: 4rem;
-  margin-bottom: 1rem;
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
 }
 
 .empty-state h2 {
@@ -249,21 +250,6 @@
   margin: 0;
   font-size: 1rem;
   line-height: 1.5;
-}
-
-.chat-header {
-  flex-shrink: 0;
-  padding: 1.5rem;
-  border-bottom: 1px solid var(--color-border);
-  text-align: center;
-}
-
-.chat-header h1 {
-  margin: 0;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--color-text);
-  letter-spacing: -0.025em;
 }
 
 .messages-container {
@@ -365,6 +351,9 @@
   font-size: 0.875rem;
   cursor: pointer;
   transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .message-button:hover:not(:disabled) {

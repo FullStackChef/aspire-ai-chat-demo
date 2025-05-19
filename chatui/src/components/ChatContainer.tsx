@@ -1,6 +1,7 @@
 import React, { useEffect, ReactNode, RefObject } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Message } from '../types/ChatTypes';
+import { MessageSquare, Send, Square } from 'lucide-react';
 
 interface ChatContainerProps {
     messages: Message[];
@@ -34,7 +35,7 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
         return (
             <div className="chat-container">
                 <div className="empty-state">
-                    <div className="empty-state-icon">🗨️</div>
+                    <MessageSquare size={48} className="empty-state-icon" />
                     <h2>No conversation selected</h2>
                     <p>Create a new chat to get started</p>
                 </div>
@@ -64,11 +65,13 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
                 />
                 {streamingMessageId ? (
                     <button type="button" onClick={cancelChat} className="message-button">
-                        Stop
+                        <Square size={20} />
+                        <span>Stop</span>
                     </button>
                 ) : (
                     <button type="submit" disabled={streamingMessageId ? true : false} className="message-button">
-                        Send
+                        <Send size={20} />
+                        <span>Send</span>
                     </button>
                 )}
             </form>
