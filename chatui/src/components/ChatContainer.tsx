@@ -55,7 +55,7 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
                 ))}
             </div>
             <form onSubmit={handleSubmit} className="message-form">
-                <input
+                <textarea
                     type="text"
                     value={prompt}
                     onChange={e => setPrompt(e.target.value)}
