@@ -24,6 +24,14 @@ const Sidebar: React.FC<SidebarProps> = ({
     handleDeleteChat
 }) => {
     const navigate = useNavigate();
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter' && newChatName.trim()) {
+            e.preventDefault();
+            handleNewChatSubmit(e);
+        }
+    };
+
     return (
         <div className="sidebar">
             <div className="sidebar-brand">
@@ -39,6 +47,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                             type="text"
                             value={newChatName}
                             onChange={e => setNewChatName(e.target.value)}
+                            onKeyDown={handleKeyDown}
                             placeholder="New conversation..."
                             className="new-chat-input"
                         />
