@@ -1,16 +1,340 @@
-.message-form {
+:root {
+  --color-primary: #6B46C1;
+  --color-primary-light: #9F7AEA;
+  --color-primary-dark: #553C9A;
+  --color-background: #F7FAFC;
+  --color-surface: #FFFFFF;
+  --color-text: #2D3748;
+  --color-text-light: #718096;
+  --color-border: #E2E8F0;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 1rem;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.app-container {
+  display: flex;
+  height: 100vh;
+  margin: 0;
   padding: 0;
+  font-family: var(--font-sans);
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
+.sidebar {
+  width: 300px;
+  height: 100vh;
+  flex-shrink: 0;
+  background-color: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-brand {
+  padding: 1.5rem;
+  background-color: #e5e5e5;
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+  width: 100%;
+}
+
+.brand-logo {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+.brand-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.sidebar-brand h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: -0.025em;
+}
+
+.new-chat-container {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.new-chat-form {
+  margin: 0;
+}
+
+.new-chat-input-group {
+  display: flex;
+  align-items: center;
+}
+
+.new-chat-input {
+  flex: 1;
+  padding: 1rem;
+  border: none;
+  border-right: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  margin: 0;
+}
+
+.new-chat-input:focus {
+  outline: none;
+  background-color: var(--color-background);
+}
+
+.new-chat-button {
+  padding: 1rem;
+  border: none;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+.new-chat-button:hover {
+  background-color: var(--color-background);
+  color: var(--color-primary);
+}
+
+.chats-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin: 0;
+}
+
+.chats-header {
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0;
+}
+
+.chats-header h2 {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.loading-indicator {
+  font-size: 0.875rem;
+  color: var(--color-text-light);
+}
+
+.chat-list {
+  flex: 1;
+  list-style: none;
+  padding: 0.75rem;
+  margin: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.chat-item {
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: all 0.2s ease;
+  margin: 0;
+}
+
+.chat-item:hover {
+  background-color: var(--color-background);
+  border-color: var(--color-primary-light);
+}
+
+.chat-item.selected {
+  background-color: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+.chat-icon {
+  flex-shrink: 0;
+}
+
+.chat-name {
+  flex-grow: 1;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+}
+
+.delete-chat-button {
+  opacity: 0;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin: 0;
+}
+
+.chat-item:hover .delete-chat-button {
+  opacity: 0.7;
+}
+
+.delete-chat-button:hover {
+  opacity: 1 !important;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.chat-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface);
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.empty-state {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+  color: var(--color-text-light);
+  margin: 0;
+}
+
+.empty-state-icon {
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+}
+
+.empty-state h2 {
+  margin: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: -0.025em;
+}
+
+.empty-state p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.messages-container {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 0;
+}
+
+.message {
+  display: flex;
+  margin: 0 0 1rem 0;
+}
+
+.message.user {
+  justify-content: flex-end;
+}
+
+.message.assistant {
+  justify-content: flex-start;
+}
+
+.message-content {
+  max-width: 70%;
+  padding: 1rem;
+  border-radius: var(--radius-lg);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  box-shadow: var(--shadow-sm);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.message.user .message-content {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.message.assistant .message-content {
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
+.message-content pre {
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 0.75rem;
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  margin: 0.5rem 0;
+  font-family: 'SF Mono', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
+
+.message-form {
+  flex-shrink: 0;
+  padding: 1.5rem;
   border-top: 1px solid var(--color-border);
   display: flex;
+  gap: 1rem;
   background-color: var(--color-surface);
   margin: 0;
-  position: relative;
 }
 
 .message-input {
   flex: 1;
-  padding: 1.25rem 4rem 1.25rem 1.25rem;
-  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
   background-color: var(--color-surface);
   color: var(--color-text);
   font-family: var(--font-sans);
@@ -18,13 +342,12 @@
   transition: all 0.2s ease;
   min-width: 0;
   margin: 0;
-  resize: none;
-  min-height: 64px;
-  max-height: 200px;
 }
 
 .message-input:focus {
   outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(107, 70, 193, 0.2);
 }
 
 .message-input:disabled {
@@ -33,26 +356,25 @@
 }
 
 .message-button {
-  position: absolute;
-  right: 1rem;
-  bottom: 1rem;
-  padding: 0.5rem;
-  border-radius: 50%;
+  flex-shrink: 0;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
   border: none;
   background-color: var(--color-primary);
   color: white;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 0.875rem;
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
+  gap: 0.5rem;
+  margin: 0;
 }
 
 .message-button:hover:not(:disabled) {
   background-color: var(--color-primary-dark);
-  transform: scale(1.05);
 }
 
 .message-button:disabled {
@@ -60,6 +382,26 @@
   cursor: not-allowed;
 }
 
-.message-button span {
-  display: none;
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-light);
+}
+
+@supports (font-variation-settings: normal) {
+  :root {
+    --font-sans: 'Inter var', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  }
 }
