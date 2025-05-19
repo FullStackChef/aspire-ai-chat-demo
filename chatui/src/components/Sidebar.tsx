@@ -58,10 +58,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                 </form>
             </div>
             <div className="chats-container">
-                <div className="chats-header">
-                    <h2>Conversations</h2>
-                    {loadingChats && <span className="loading-indicator">Loading...</span>}
-                </div>
+                {loadingChats && <span className="loading-indicator">Loading...</span>}
                 <ul className="chat-list">
                     {chats.map(chat => (
                         <li
