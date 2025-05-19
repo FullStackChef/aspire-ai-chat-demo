@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Chat } from '../types/ChatTypes';
-import { BsPencilSquare, BsTrash, BsChatSquarePlus } from 'react-icons/bs';
+import { BsPencilSquare, BsTrash, BsPlusSquare } from 'react-icons/bs';
 
 interface SidebarProps {
     chats: Chat[];
@@ -43,7 +43,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                             className="new-chat-input"
                         />
                         <button type="submit" className="new-chat-button" title="Create new chat">
-                            <BsChatSquarePlus size={20} />
+                            <BsPlusSquare size={20} />
                         </button>
                     </div>
                 </form>
