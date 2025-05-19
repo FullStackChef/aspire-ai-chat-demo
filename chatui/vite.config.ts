@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 import type { UserConfig, ServerOptions } from 'vite';
 
 const port = process.env.PORT ? parseInt(process.env.PORT) : undefined;
+const backendUrl = process.env.BACKEND_URL || 'http://localhost:5191';
 
 export default defineConfig({
   plugins: [react()],
@@ -11,11 +12,11 @@ export default defineConfig({
     port,
     proxy: {
       '/api': {
-        target: process.env.BACKEND_URL,
+        target: backendUrl,
         changeOrigin: true,
       },
       '/api/chat/stream': {
-        target: process.env.BACKEND_URL,
+        target: backendUrl,
         ws: true,
         changeOrigin: true,
       }
