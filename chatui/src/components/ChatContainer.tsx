@@ -31,6 +31,13 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
         }
     }, [messages, shouldAutoScroll, messagesEndRef]);
 
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            handleSubmit(e);
+        }
+    };
+
     if (messages.length === 0) {
         return (
             <div className="chat-container">
@@ -55,23 +62,22 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
                 ))}
             </div>
             <form onSubmit={handleSubmit} className="message-form">
-                <input
-                    type="text"
+                <textarea
                     value={prompt}
                     onChange={e => setPrompt(e.target.value)}
-                    placeholder="Enter your message..."
+                    onKeyDown={handleKeyDown}
+                    placeholder="Type your message..."
                     disabled={streamingMessageId ? true : false}
                     className="message-input"
+                    rows={1}
                 />
                 {streamingMessageId ? (
-                    <button type="button" onClick={cancelChat} className="message-button">
+                    <button type="button" onClick={cancelChat} className="message-button" title="Stop generating">
                         <LuSquareSlash size={20} />
-                        <span>Stop</span>
                     </button>
                 ) : (
-                    <button type="submit" disabled={streamingMessageId ? true : false} className="message-button">
+                    <button type="submit" disabled={!prompt.trim() || streamingMessageId} className="message-button" title="Send message">
                         <LuSend size={20} />
-                        <span>Send</span>
                     </button>
                 )}
             </form>
