@@ -18,10 +18,11 @@
 .app-container {
   display: flex;
   height: 100vh;
-  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
   background-color: var(--color-background);
   color: var(--color-text);
-  font-family: var(--font-sans);
 }
 
 .sidebar {
@@ -34,6 +35,7 @@
   flex-direction: column;
   overflow: hidden;
   padding: 0;
+  margin: 0;
 }
 
 .sidebar-brand {
@@ -74,6 +76,7 @@
 
 .new-chat-form {
   width: 100%;
+  margin: 0;
 }
 
 .new-chat-input-group {
@@ -92,6 +95,7 @@
   font-family: var(--font-sans);
   font-size: 0.875rem;
   transition: all 0.2s ease;
+  margin: 0;
 }
 
 .new-chat-input:focus {
@@ -111,6 +115,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0;
 }
 
 .new-chat-button:hover {
@@ -123,6 +128,7 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  margin: 0;
 }
 
 .chats-header {
@@ -130,6 +136,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin: 0;
 }
 
 .chats-header h2 {
@@ -168,6 +175,7 @@
   align-items: center;
   gap: 0.75rem;
   transition: all 0.2s ease;
+  margin: 0;
 }
 
 .chat-item:hover {
@@ -191,6 +199,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin: 0;
 }
 
 .delete-chat-button {
@@ -206,6 +215,7 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  margin: 0;
 }
 
 .chat-item:hover .delete-chat-button {
@@ -223,6 +233,8 @@
   flex-direction: column;
   background-color: var(--color-surface);
   overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 .empty-state {
@@ -234,6 +246,7 @@
   padding: 2rem;
   text-align: center;
   color: var(--color-text-light);
+  margin: 0;
 }
 
 .empty-state-icon {
@@ -263,11 +276,12 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  margin: 0;
 }
 
 .message {
   display: flex;
-  margin-bottom: 1rem;
+  margin: 0 0 1rem 0;
 }
 
 .message.user {
@@ -287,6 +301,7 @@
   box-shadow: var(--shadow-sm);
   font-size: 0.9375rem;
   line-height: 1.6;
+  margin: 0;
 }
 
 .message.user .message-content {
@@ -317,6 +332,7 @@
   display: flex;
   gap: 1rem;
   background-color: var(--color-surface);
+  margin: 0;
 }
 
 .message-input {
@@ -330,6 +346,7 @@
   font-size: 0.9375rem;
   transition: all 0.2s ease;
   min-width: 0;
+  margin: 0;
 }
 
 .message-input:focus {
@@ -358,6 +375,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  margin: 0;
 }
 
 .message-button:hover:not(:disabled) {
