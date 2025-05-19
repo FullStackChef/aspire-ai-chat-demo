@@ -17,14 +17,14 @@
 .app-container {
   display: flex;
   height: 100vh;
-  margin: 0;
-  font-family: system-ui, -apple-system, sans-serif;
+  overflow: hidden;
   background-color: var(--color-background);
   color: var(--color-text);
 }
 
 .sidebar {
   width: 300px;
+  height: 100vh;
   flex-shrink: 0;
   background-color: var(--color-surface);
   border-right: 1px solid var(--color-border);
@@ -32,9 +32,11 @@
   flex-direction: column;
   padding: 1.5rem;
   gap: 1.5rem;
+  overflow: hidden;
 }
 
 .sidebar-header {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -53,7 +55,7 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  flex-grow: 1;
+  flex: 1;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -88,6 +90,9 @@
   flex-grow: 1;
   margin-right: 0.5rem;
   font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .delete-chat-button {
@@ -103,6 +108,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .chat-item:hover .delete-chat-button {
@@ -115,6 +121,7 @@
 }
 
 .new-chat-form {
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -153,16 +160,15 @@
 }
 
 .chat-container {
-  flex-grow: 1;
+  flex: 1;
   display: flex;
   flex-direction: column;
   background-color: var(--color-surface);
-  border-radius: var(--radius-lg);
-  margin: 1rem;
-  box-shadow: var(--shadow-md);
+  overflow: hidden;
 }
 
 .chat-header {
+  flex-shrink: 0;
   padding: 1.5rem;
   border-bottom: 1px solid var(--color-border);
   text-align: center;
@@ -176,7 +182,7 @@
 }
 
 .messages-container {
-  flex-grow: 1;
+  flex: 1;
   padding: 1.5rem;
   overflow-y: auto;
   display: flex;
@@ -221,20 +227,23 @@
 }
 
 .message-form {
+  flex-shrink: 0;
   padding: 1.5rem;
   border-top: 1px solid var(--color-border);
   display: flex;
   gap: 1rem;
+  background-color: var(--color-surface);
 }
 
 .message-input {
-  flex-grow: 1;
+  flex: 1;
   padding: 0.75rem 1rem;
   border-radius: var(--radius-md);
   border: 1px solid var(--color-border);
   background-color: var(--color-surface);
   color: var(--color-text);
   transition: all 0.2s ease;
+  min-width: 0;
 }
 
 .message-input:focus {
@@ -249,6 +258,7 @@
 }
 
 .message-button {
+  flex-shrink: 0;
   padding: 0.75rem 1.5rem;
   border-radius: var(--radius-md);
   border: none;
