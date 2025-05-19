@@ -1,7 +1,7 @@
 import React, { useEffect, ReactNode, RefObject } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Message } from '../types/ChatTypes';
-import { BsChatSquare, BsSend, BsStop } from 'react-icons/bs';
+import { LuMessageSquare, LuSend, LuSquareSlash } from 'react-icons/lu';
 
 interface ChatContainerProps {
     messages: Message[];
@@ -35,7 +35,7 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
         return (
             <div className="chat-container">
                 <div className="empty-state">
-                    <BsChatSquare size={48} className="empty-state-icon" />
+                    <LuMessageSquare size={48} className="empty-state-icon" />
                     <h2>No conversation selected</h2>
                     <p>Create a new chat to get started</p>
                 </div>
@@ -65,12 +65,12 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
                 />
                 {streamingMessageId ? (
                     <button type="button" onClick={cancelChat} className="message-button">
-                        <BsStop size={20} />
+                        <LuSquareSlash size={20} />
                         <span>Stop</span>
                     </button>
                 ) : (
                     <button type="submit" disabled={streamingMessageId ? true : false} className="message-button">
-                        <BsSend size={20} />
+                        <LuSend size={20} />
                         <span>Send</span>
                     </button>
                 )}

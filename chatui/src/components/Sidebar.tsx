@@ -1,8 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Chat } from '../types/ChatTypes';
-import { BsPencilSquare, BsTrash } from 'react-icons/bs';
-import { LuMessageSquarePlus } from 'react-icons/lu';
+import { LuPencilLine, LuTrash2, LuMessageSquarePlus } from 'react-icons/lu';
 
 interface SidebarProps {
     chats: Chat[];
@@ -61,14 +60,14 @@ const Sidebar: React.FC<SidebarProps> = ({
                             onClick={() => navigate(`/chat/${chat.id}`)}
                             className={`chat-item ${selectedChatId === chat.id ? 'selected' : ''}`}
                         >
-                            <BsPencilSquare size={16} className="chat-icon" />
+                            <LuPencilLine size={16} className="chat-icon" />
                             <span className="chat-name">{chat.name}</span>
                             <button
                                 className="delete-chat-button"
                                 onClick={(e) => handleDeleteChat(e, chat.id)}
                                 title="Delete chat"
                             >
-                                <BsTrash size={16} />
+                                <LuTrash2 size={16} />
                             </button>
                         </li>
                     ))}
