@@ -24,12 +24,23 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
     messagesEndRef,
     shouldAutoScroll
 }: ChatContainerProps) => {
-    // Scroll only if near the bottom
     useEffect(() => {
         if (shouldAutoScroll && messagesEndRef.current) {
             messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
         }
     }, [messages, shouldAutoScroll, messagesEndRef]);
+
+    if (messages.length === 0) {
+        return (
+            <div className="chat-container">
+                <div className="empty-state">
+                    <div className="empty-state-icon">🗨️</div>
+                    <h2>No conversation selected</h2>
+                    <p>Create a new chat to get started</p>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="chat-container">
