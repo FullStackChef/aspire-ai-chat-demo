@@ -10,7 +10,7 @@ interface SidebarProps {
     setNewChatName: (name: string) => void;
     handleNewChatSubmit: (e: React.FormEvent) => void;
     handleDeleteChat: (e: React.MouseEvent, chatId: string) => void;
-    onSelectChat?: (id: string) => void; // Make this optional since it's not used in the implementation
+    onSelectChat?: (id: string) => void;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
@@ -25,40 +25,52 @@ const Sidebar: React.FC<SidebarProps> = ({
     const navigate = useNavigate();
     return (
         <div className="sidebar">
-            <div className="sidebar-header">
-                <h2>Chats</h2>
-                {loadingChats && <p>Loading...</p>}
+            <div className="sidebar-brand">
+                <div className="brand-logo">
+                    <img src="https://learn.microsoft.com/en-us/dotnet/aspire/media/index/aspire-logo.png" alt="Aspire Logo" />
+                </div>
+                <h1>Aspire AI Chat</h1>
             </div>
-            <ul className="chat-list">
-                {chats.map(chat => (
-                    <li
-                        key={chat.id}
-                        onClick={() => navigate(`/chat/${chat.id}`)}
-                        className={`chat-item ${selectedChatId === chat.id ? 'selected' : ''}`}
-                    >
-                        <span className="chat-name">{chat.name}</span>
-                        <button
-                            className="delete-chat-button"
-                            onClick={(e) => handleDeleteChat(e, chat.id)}
-                            title="Delete chat"
-                        >
-                            ×
+            <div className="new-chat-container">
+                <form onSubmit={handleNewChatSubmit} className="new-chat-form">
+                    <div className="new-chat-input-group">
+                        <input
+                            type="text"
+                            value={newChatName}
+                            onChange={e => setNewChatName(e.target.value)}
+                            placeholder="New conversation..."
+                            className="new-chat-input"
+                        />
+                        <button type="submit" className="new-chat-button" title="Create new chat">
+                            ✏️
                         </button>
-                    </li>
-                ))}
-            </ul>
-            <form onSubmit={handleNewChatSubmit} className="new-chat-form">
-                <input
-                    type="text"
-                    value={newChatName}
-                    onChange={e => setNewChatName(e.target.value)}
-                    placeholder="New chat name"
-                    className="new-chat-input"
-                />
-                <button type="submit" className="new-chat-button">
-                    Create Chat
-                </button>
-            </form>
+                    </div>
+                </form>
+            </div>
+            <div className="chats-container">
+                <div className="chats-header">
+                    <h2>Conversations</h2>
+                    {loadingChats && <span className="loading-indicator">Loading...</span>}
+                </div>
+                <ul className="chat-list">
+                    {chats.map(chat => (
+                        <li
+                            key={chat.id}
+                            onClick={() => navigate(`/chat/${chat.id}`)}
+                            className={`chat-item ${selectedChatId === chat.id ? 'selected' : ''}`}
+                        >
+                            <span className="chat-name">{chat.name}</span>
+                            <button
+                                className="delete-chat-button"
+                                onClick={(e) => handleDeleteChat(e, chat.id)}
+                                title="Delete chat"
+                            >
+                                ×
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+            </div>
         </div>
     );
 };
