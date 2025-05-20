@@ -26,6 +26,7 @@ const App: React.FC = () => {
     const abortControllerRef = useRef<AbortController | null>(null);
     const [shouldAutoScroll, setShouldAutoScroll] = useState<boolean>(true);
     const [streamingMessageId, setStreamingMessageId] = useState<string | null>(null);
+    const [enterToSend, setEnterToSend] = useState(false);
     const { chatId } = useParams<ChatParams>();
     const navigate = useNavigate();
 
@@ -210,11 +211,13 @@ const App: React.FC = () => {
             const newChat = await chatService.createChat(newChatName);
             setChats(prevChats => [...prevChats, newChat]);
             setNewChatName('');
-            onSelectChat(newChat.id);
+            setSelectedChatId(newChat.id); // Automatically select the new chat
+            setMessages([]); // Optionally clear messages for new chat
+            navigate(`/chat/${newChat.id}`); // Navigate to the new chat
         } catch (error) {
             console.error('handleNewChatSubmit error:', error);
         }
-    }, [newChatName, chatService, onSelectChat]);
+    }, [newChatName, chatService, navigate]);
 
     const handleDeleteChat = async (e: React.MouseEvent, chatId: string) => {
         e.stopPropagation();
@@ -246,6 +249,8 @@ const App: React.FC = () => {
                 handleNewChatSubmit={handleNewChatSubmit}
                 handleDeleteChat={handleDeleteChat}
                 onSelectChat={onSelectChat}
+                enterToSend={enterToSend}
+                setEnterToSend={setEnterToSend}
             />
             <ChatContainer
                 messages={messages}
@@ -259,6 +264,8 @@ const App: React.FC = () => {
                 renderMessages={() => (
                     <VirtualizedChatList messages={messages} />
                 )}
+                enterToSend={enterToSend}
+                selectedChatId={selectedChatId}
             />
         </div>
     );

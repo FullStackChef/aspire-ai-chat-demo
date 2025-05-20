@@ -12,6 +12,8 @@ interface SidebarProps {
     handleNewChatSubmit: (e: React.FormEvent) => void;
     handleDeleteChat: (e: React.MouseEvent, chatId: string) => void;
     onSelectChat?: (id: string) => void;
+    enterToSend: boolean;
+    setEnterToSend: (val: boolean) => void;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
@@ -21,7 +23,9 @@ const Sidebar: React.FC<SidebarProps> = ({
     newChatName,
     setNewChatName,
     handleNewChatSubmit,
-    handleDeleteChat
+    handleDeleteChat,
+    enterToSend,
+    setEnterToSend
 }) => {
     const navigate = useNavigate();
 
@@ -78,6 +82,26 @@ const Sidebar: React.FC<SidebarProps> = ({
                         </li>
                     ))}
                 </ul>
+            </div>
+            {/* Settings box at the bottom */}
+            <div className="sidebar-settings">
+                <div style={{ borderTop: '1px solid #eee', padding: '12px 16px', fontSize: 13 }}>
+                    <strong>Settings</strong>
+                    <div style={{ marginTop: 8 }}>
+                        <label style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                            <input
+                                type="checkbox"
+                                checked={enterToSend}
+                                onChange={e => setEnterToSend(e.target.checked)}
+                                style={{ marginRight: 6 }}
+                            />
+                            Enter to Send
+                        </label>
+                        <div style={{ fontSize: 11, color: '#888', marginTop: 2 }}>
+                            {enterToSend ? 'Press Enter to send, Shift+Enter for new line' : 'Click Send button to send'}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     );

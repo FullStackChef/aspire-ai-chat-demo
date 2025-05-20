@@ -1,7 +1,7 @@
 import React, { useEffect, ReactNode, RefObject } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Message } from '../types/ChatTypes';
-import { LuMessageSquare, LuSend, LuSquareSlash } from 'react-icons/lu';
+import { LuMessageSquare, LuSend } from 'react-icons/lu';
 
 interface ChatContainerProps {
     messages: Message[];
@@ -13,6 +13,8 @@ interface ChatContainerProps {
     messagesEndRef: RefObject<HTMLDivElement | null>;
     shouldAutoScroll: boolean;
     renderMessages: () => ReactNode;
+    enterToSend: boolean;
+    selectedChatId: string | null;
 }
 
 const ChatContainer: React.FC<ChatContainerProps> = ({
@@ -23,7 +25,10 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
     cancelChat,
     streamingMessageId,
     messagesEndRef,
-    shouldAutoScroll
+    shouldAutoScroll,
+    renderMessages,
+    enterToSend,
+    selectedChatId
 }: ChatContainerProps) => {
     useEffect(() => {
         if (shouldAutoScroll && messagesEndRef.current) {
@@ -31,7 +36,22 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
         }
     }, [messages, shouldAutoScroll, messagesEndRef]);
 
-    if (messages.length === 0) {
+    // Handle key down for textarea
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        if (enterToSend && !streamingMessageId) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                // Create a fake event to call handleSubmit
+                const form = e.currentTarget.form;
+                if (form) {
+                    const submitEvent = new Event('submit', { bubbles: true, cancelable: true });
+                    form.dispatchEvent(submitEvent);
+                }
+            }
+        }
+    };
+
+    if (!selectedChatId) {
         return (
             <div className="chat-container">
                 <div className="empty-state">
@@ -54,25 +74,73 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
                     </div>
                 ))}
             </div>
-            <form onSubmit={handleSubmit} className="message-form">
+            <form onSubmit={handleSubmit} className="message-form" style={{ position: 'relative' }}>
                 <textarea
-                    type="text"
                     value={prompt}
                     onChange={e => setPrompt(e.target.value)}
                     placeholder="Enter your message..."
                     disabled={streamingMessageId ? true : false}
                     className="message-input"
+                    onKeyDown={handleKeyDown}
                 />
                 {streamingMessageId ? (
-                    <button type="button" onClick={cancelChat} className="message-button">
-                        <LuSquareSlash size={20} />
-                        <span>Stop</span>
-                    </button>
+                    <span
+                        className="message-icon-only chat-spinner"
+                        style={{
+                            position: 'absolute',
+                            bottom: 20,
+                            right: 20,
+                            display: 'flex',
+                            alignItems: 'center',
+                            opacity: 0.7,
+                            pointerEvents: 'none',
+                            fontSize: 20
+                        }}
+                    >
+                        <span className="chat-loading-spinner" />
+                    </span>
+                ) : enterToSend ? (
+                    <span
+                        className="message-icon-only"
+                        style={{
+                            position: 'absolute',
+                            bottom: 20,
+                            right: 20,
+                            display: 'flex',
+                            alignItems: 'center',
+                            opacity: 1,
+                            pointerEvents: 'none',
+                            fontSize: 20
+                        }}
+                    >
+                        <LuSend size={24} />
+                    </span>
                 ) : (
-                    <button type="submit" disabled={streamingMessageId ? true : false} className="message-button">
-                        <LuSend size={20} />
-                        <span>Send</span>
-                    </button>
+                    <span
+                        className="message-icon-only"
+                        style={{
+                            position: 'absolute',
+                            bottom: 20,
+                            right: 20,
+                            display: 'flex',
+                            alignItems: 'center',
+                            opacity: streamingMessageId ? 0.7 : 1,
+                            fontSize: 20,
+                            cursor: streamingMessageId ? 'not-allowed' : 'pointer',
+                            pointerEvents: streamingMessageId ? 'none' : 'auto'
+                        }}
+                        onClick={streamingMessageId ? undefined : (e => {
+                            e.preventDefault();
+                            if (!streamingMessageId && prompt.trim()) {
+                                handleSubmit(new Event('submit', { bubbles: true, cancelable: true }) as unknown as React.FormEvent);
+                            }
+                        })}
+                        tabIndex={streamingMessageId ? -1 : 0}
+                        role="button"
+                        aria-label="Send message"
+                    >
+                        <LuSend size={24} />
+                    </span>
                 )}
             </form>
         </div>
